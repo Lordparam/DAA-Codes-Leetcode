@@ -13,7 +13,7 @@ int findMaxConsecutiveOnes(vector<int>& nums) {
                 count=0;
             }
         }
-            if(count>max){ //you directly cannot do like -> if(count>max) return count, else return max,IT WOULD BE WRONG____WHY?? Suppose if array is {0,0,0,0} then since no ones so that max will remain INT_MIN which when returned creates problem***
+            if(count>max){ //you directly cannot do like -> if(count>max) return count, else return max,IT WOULD BE WRONG____ WHY?? Suppose if array is {0,0,0,0} then since no ones so that max will remain INT_MIN which when returned creates problem***
                 max=count;
             }
         return max;
