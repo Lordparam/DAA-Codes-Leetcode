@@ -8,6 +8,28 @@ n is the size of input).                                       */
 #include<vector>
 #include<algorithm>
 using namespace std;
+
+bool binarySearch(vector<int> &arr, int n, int key, int &compare){
+    int start = 0;
+    int end = n-1;
+    bool found = false;
+    while(start <= end){
+        compare++;
+        int mid = start + (end - start)/2;
+        if(arr[mid] == key){
+            found = true;
+            break;
+        }
+        compare++;
+        if(arr[mid] > key){
+            end = mid - 1;
+        }
+        else{
+            start = mid + 1;
+        }
+    }
+    return found;
+}
 int main(){
     int n,key,compare=0,ele;
     cout << "Enter size of array : ";
@@ -27,27 +49,12 @@ int main(){
 
     cout << "Enter element to find in array : ";
     cin >> key;
-    int start = 0;
-    int end = n-1;
-    bool found = false;
+    bool found = binarySearch(arr, n, key, compare);
 
-    while(start <= end){
-        compare++;
-        int mid = start + (end - start)/2;
-        if(arr[mid] == key){
-            cout << "Found in " << compare << " comparisons";
-            found = true;
-            break;
-        }
-        compare++;
-        if(arr[mid] > key){
-            end = mid - 1;
-        }
-        else{
-            start = mid + 1;
-        }
+    if(found == true){
+        cout << "Found in " << compare << " comparisons";
     }
-    if(found == false){
+    else{
         cout << "Not Found in " << compare << " comparisons";
     }
     return 0;

@@ -9,6 +9,36 @@ number of elements need to be scanned for searching): Jump Search */
 #include<vector>
 #include<cmath>
 using namespace std;
+bool jumpSearch(vector<int> &arr, int n, int key, int &compare){
+    int step = sqrt(n);
+    int prev = 0;
+    for(int i=0; i<n; i+=step){
+        compare++;
+        if(arr[i] == key){
+            return true;
+        }
+        compare++;
+        if(arr[i] > key){
+            for(int j=prev; j<=i; j++){
+                compare++;
+                if(arr[j] == key){
+                    return true;
+                }
+            }
+            return false;
+        }
+        prev = i;
+    }
+    int end= min(prev+step,n);
+    while(prev<end){
+        compare++;
+        if(arr[prev]==key) {
+            return true;
+        }
+        prev++;
+    }
+    return false;
+}
 int main(){
     int n,key,compare=0,ele,i;
     cout << "Enter size of array : ";
@@ -21,40 +51,9 @@ int main(){
     }
     cout << "Enter element to find in array : ";
     cin >> key;
-    bool found=false;
-    int step = sqrt(n);
-    int prev = 0;
-    // Jumping phase
-    for(int i=0; i<n; i+=step){
-        compare++;
-        if(arr[i] == key){
-            found = true;
-            break;
-        }
-        if(arr[i] > key){
-            for(int j=prev; j<=i; j++){
-                compare++;
-                if(arr[j] == key){
-                    found = true;
-                    break;
-                }
-            }
-            break;
-        }
-        prev = i;
-    }
-    int end= min(prev+step,n); //someimes prev+step goes out of bounds
-    //edge case if elements left on the right side
-    if(!found){
-    while(prev<end){
-        compare++;
-        if(arr[prev]==key) {
-        found =true;
-        break;
-        }
-        prev++;
-    }
-}
+
+    bool found = jumpSearch(arr, n, key, compare);
+
     if(found){
         cout << "Found in " << compare << " comparisons";
     }
